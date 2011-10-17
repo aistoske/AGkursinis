@@ -1,0 +1,277 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{lmodern}
+\newcommand{\mik}{MiK\TeX}
+\usepackage{Sweave}
+\begin{document}
+\begin{center}
+\textbf{VILNIAUS UNIVERSITETAS }
+\end{center}
+
+\medskip
+\medskip
+\medskip
+\medskip
+
+\begin{center}
+\textbf{KURSINIO PROJEKTO \\ GRYNØJØ PINIGØ PROGNOZAVIMAS\\ PRADINË DUOMENØ ANALIZË}
+\end{center}
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+\medskip
+
+
+\medskip
+
+
+\medskip
+
+
+\medskip
+
+\medskip
+
+
+
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+
+\begin{flushright}
+Kursinio projekto vadovas: Gediminas Murauskas\\
+Kursiná projektà atlieka: Aistë Dapkûnaitë, Greta Petrulaitytë
+\end{flushright}
+
+\medskip
+\medskip
+\medskip
+\medskip
+\medskip
+
+
+\begin{center}
+2011, Vilnius
+\end{center}
+
+\newpage
+
+\quad Mûsø projektiniam darbui reikalingi Lietuvos duomenys yra: BVP, grynøjø pinigø kiekis apyvartoje, suderintas vartotojø kainø indeksas, indëliø (nuo 1 mën.) litais nominalioji vidutinë metinë palûkanø norma laikotarpio pabaigoje, grynøjø litø laikymo alternatyviø sànaudø rodiklis. 
+
+\medskip
+
+\quad Pradinæ duomenø analizæ pradësime nuo \textbf{grynøjø pinigø kiekio apyvartoje}. Analizuojame mënesinius duomenis nuo 2005-01 iki 2011-07. Matavimo vienetai – mln. LT. Pagrindinë duomenø charakteristika:
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(p)
+\end{Sinput}
+\begin{Soutput}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  22330   33240   41780   39060   44840   49170 
+\end{Soutput}
+\end{Schunk}
+
+\quod Taigi, vidutiniðkai Lietuvos rinkoje yra 39 mldr.Lt grynøjø pinigø, tai sudaro monetos(banknotai) bei indëliai iki pareikalavimo.  Didþiausias kiekis apyvartoje ???  49,17 mldr.LT , maþiausias ??? 22,33 mldr.LT .\\
+
+\medskip
+
+\includegraphics{bo-002}
+
+\medskip 
+
+\medskip
+
+\quad Matome, kad mûsø duomenys turi didëjantá trendà, nes pinigø kiekis rinkoje auga. Galime pastebëti trendo krypties pasikeitimà 2008-2010 metø intervale dël pasaulá sukrëtusios finansø krizës, kuri palietë ir Lietuvà. Taip pat galima iðskirti sezoninæ dalá. Grynøjø pinigø kiekio padidëjimà rinkoje lemia padidëjæs vartojimas vasaros bei ðvenèiø laikotarpiu. Kadangi modelio likuèiai atsitiktinai nesvyruoja apie konstantà, reikëtø patikrinti, ar procesas yra stacionarus (t.y. ar jis neturi vienetinës ðaknies). Tam naudosime Dickey-Fuller testà. \\
+\medskip
+
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(ur.df(p, lags = 12, type = "trend", selectlags = "AIC"))
+\end{Sinput}
+\end{Schunk}
+\medskip
+
+\quad Maksimalø ankstiniø skaièiø pasirinkome 12, kadangi duomenys yra mënesiniai. Ur.df funkcija parinks geriausià ankstiniø skaièiø pagal Akaike kriterijø. Ið testo rezultatø pastebëjome, jog nulinës hipotezës (procesas turi vienetinæ ðakná) negalime atmesti, nes -2,05>-3,45. Taigi tam, kad paðalintume vienetinæ ðakná ateityje naudosime skirtumus.\\
+
+\medskip
+
+\textbf{BVP:}\\
+
+\medskip
+
+Bendrojo vidaus produkto duomenys yra ketvirtiniai, matavimo vienetai - mln LT. Laiko intervalas nuo 2005-01 iki 2011-07.\\
+
+\medskip
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(bvp)
+\end{Sinput}
+\begin{Soutput}
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+15140000 20760000 23200000 23240000 24990000 30020000 
+\end{Soutput}
+\end{Schunk}
+
+\medskip
+
+\includegraphics{bo-005}
+
+\medskip
+
+\medskip
+
+\quad Lietuvos BVP linkæs augti, tai nusako didëjantis trendas. Ið pateiktos lentelës pastebime, kad krizës laikotarpiu Lietuvos BVP pradëjo kristi. Pateiktà sezoniðkumà galima paaiðkinti padidëjusiu namø ûkiø polinkiu vartoti vasaros metu.\\
+
+\medskip
+
+\quad Kaip ir grynøjø pinigø duomenims, taip ir Lietuvos bvp duomenims darome vienetinës ðaknies testà :\\
+
+\medskip
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(ur.df(bvp, lags = 4, type = "trend", selectlags = "AIC"))
+\end{Sinput}
+\end{Schunk}
+
+\medskip
+
+\quad Kadangi -3,507 yra maþiau uþ ???3,5 su penkiø procentø reikðmingumo lygmeniu, atmetame vienetinës ðaknies egzistavimo hipotezæ. Dël duomenø stokos testas galëjo pateikti klaidingus rezultatus, paþvelgus ið ekonominës pusës vienetinë ðaknis turëtø egzistuoti.\\
+
+\medskip
+
+\textbf{SVKI}
+
+\medskip
+
+\quad Analizuojami mënesiniai Suderinto vartotojø kainø indekso, palyginti su baziniu laikotarpiu (2005m - 100), duomenys nuo 2005m sausio iki 2011m rugpjûèio mënesio. Pagrindinë charakteristika:\\
+
+\medskip
+\begin{Schunk}
+\begin{Sinput}
+> summary(svki)
+\end{Sinput}
+\begin{Soutput}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  99.06  105.00  132.40  125.30  140.80  155.00 
+\end{Soutput}
+\end{Schunk}
+\includegraphics{bo-007}
+
+\medskip
+
+\quad Duomenys turi didëjantá trendà, kuris ,,pristabdo?? savo augimà nuo 2008 metø galo ir vël pamaþu pradeda kilti tik 2010m. pradþioje. Ekonomiðkai ðá fenomenà bûtø galima paaiðkinti sumaþëjusiomis maisto prekiø, energijos ir bûsto paslaugø kainomis sunkmeèio laikotarpiu. Sezoniðkumà lemia tam tikrø prekiø ir paslaugø kainø maþëjimas pavasario-vasaros metu.\\
+
+\medskip
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(ur.df(svki, lags = 12, type = "trend", selectlags = "AIC"))
+\end{Sinput}
+\end{Schunk}
+
+\medskip
+
+\quad DF testas parodë, jog vienetinës ðaknies hipotezës negalime atmesti, kadangi -3<-3.45. \\
+
+\medskip
+
+\textbf{Z}
+
+\quad Grynøjø pinigø (litø) laikymo alternatyviø sànaudø rodiklis. \\
+
+\medskip
+
+$Z=\frac{I}{I+1}$, kur I - priimtø nefinansiniø korporacijø ir namø ûkiø indëliø nuo 1 mën. palûkanø norma.\\
+
+\medskip
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(z)
+\end{Sinput}
+\begin{Soutput}
+       V1        
+ Min.   :0.4536  
+ 1st Qu.:0.6911  
+ Median :0.7354  
+ Mean   :0.7331  
+ 3rd Qu.:0.8394  
+ Max.   :0.8962  
+\end{Soutput}
+\end{Schunk}
+\includegraphics{bo-009}
+
+\medskip
+
+\includegraphics{bo-010}
+
+\medskip
+
+\quad Matome, kad duomenys turi trendà ir sezoninæ dalá. Kreivës kritimo 2010m. pradþioje prieþastis yra reikðmingas indëliø palûkanø normos maþinimas. \\
+
+\medskip
+
+\quad DF testas:\\
+
+\medskip
+
+\begin{Schunk}
+\begin{Sinput}
+> summary(ur.df(z, lags = 12, type = "trend", selectlags = "AIC"))
+\end{Sinput}
+\end{Schunk}
+
+\medskip
+
+\quad Kadangi  koeficientas prie ankstinio (-3,014) yra didesnis uþ penkiø procentø kritinæ reikðmæ (-3,45) nëra pagrindo atmesti nulinæ hipotezæ: procesas turi vienetinæ ðakná. 
+
+
+
+\end{document}
